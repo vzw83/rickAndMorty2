@@ -28,6 +28,10 @@ const Title = styled.h3<{enterTheme: string}>`
     span{
         color: ${theme.colors.accent};        
     }
+    @media ${theme.media.tablet} {
+        font-size: 30px;
+        margin: 0 0 10px;
+    }
 `
 const Span = styled.span<{enterTheme: string}>`
     font-weight: 500;
@@ -35,5 +39,9 @@ const Span = styled.span<{enterTheme: string}>`
     color: ${props => props.enterTheme === "light" ? theme.lightTheme.text : theme.darkTheme.text};
     margin: 0 0 20px;
     display: block;
-    text-align: center;   
+    text-align: center;
+
+    @media ${theme.media.tablet} {
+        margin: 0 0 5px;
+    }
 `

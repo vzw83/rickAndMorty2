@@ -10,15 +10,15 @@ type Props = {
 };
 export const DesktopMenu = (props: Props) => {
 
-  const {toggleTheme} = useTheme()
 
     return (
         <StyledDesktopMenu>
           <FlexWrapper align="center">
-            <button onClick={toggleTheme}>Ligt/Dark</button>
+            <BurgerButton>
+
+            </BurgerButton>
             <Menu/>
           </FlexWrapper>
-
         </StyledDesktopMenu>
     );
 };
@@ -33,5 +33,35 @@ const StyledDesktopMenu = styled.div`
     
     @media ${theme.media.tablet} {
         display: none ;
+    }
+`
+const BurgerButton = styled.button`
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    
+    span{
+        display: block;
+        width: 50px;
+        height: 2px;
+        background-color:  ${theme.colors.buttonBg};
+        position: absolute;
+        
+        &::before{
+            content: "";
+            width: 50px;
+            height: 2px;
+            background-color: ${theme.colors.buttonBg};
+            transform: translateY(-10px);
+        }
+        &::after{
+            content: "";
+            width: 50px;
+            height: 2px;
+            background-color: ${theme.colors.buttonBg};
+            transform: translateY(10px);
+        }
     }
 `

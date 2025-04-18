@@ -10,8 +10,9 @@ import {getArrNumbersForLokAndEpis} from "../../utils/getArrNumbersForLokAndEpis
 import {TitlePage} from "./TitltPage/TitlePage";
 import {TitleOptions} from "../../common/components/title/TitleOptions";
 import {useTheme} from "../../app/ThemeContextProvider";
+import {theme} from "../../styles/Theme";
 
-export const Episode = () => {
+const Episode = () => {
 
   const {enterTheme} = useTheme()
 
@@ -44,15 +45,13 @@ export const Episode = () => {
         <TitlePage titlePage={data?.results[currentPage - 1].name} date={data?.results[currentPage - 1].air_date}/>
       </FlexWrapper>
 
-
-      <FlexWrapper>
-
-        <FlexWrapper direction={'column'} align={'center'} >
+      <Wrapper>
+        <WrapperSelect>
           <TitleOptions enterTheme={enterTheme}>Pick Episode</TitleOptions>
           <Select nameOption={"Episode"} handlerSelect={handlerSelect} arrNumberEpisodes={arrNumberEpisodes}/>
-        </FlexWrapper>
+        </WrapperSelect>
 
-        <FlexWrapper justify={"start"} wrap={"wrap"} gap={"10px"}>
+        <FlexWrapper justify={"center"} wrap={"wrap"} gap={"10px"}>
           {Array.isArray(normalizeArr) &&
             normalizeArr?.map((character) => {
               return (
@@ -68,7 +67,7 @@ export const Episode = () => {
             })
           }
         </FlexWrapper>
-      </FlexWrapper>
+      </Wrapper>
 
     </StyledCharacters>
 
@@ -76,8 +75,25 @@ export const Episode = () => {
 };
 
 const StyledCharacters = styled.div`
-    margin-top: 80px;
+    margin-top: 50px;
+    @media ${theme.media.tablet} {
+        margin-top: 20px;
+    }
+`
+
+const WrapperSelect = styled.div`
+    margin-right: 50px;
+
+    @media ${theme.media.tablet} {
+        margin: 0 0 50px 0;
+    }
 `
 const Wrapper = styled.div`
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    @media ${theme.media.tablet} {
+        flex-direction: column;
+        text-align: center;
+    }
 `
+export default Episode

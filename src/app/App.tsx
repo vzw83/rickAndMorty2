@@ -1,56 +1,44 @@
-import React from 'react';
-import {Characters} from "../layout/characters/Characters";
-import {Episode} from "../layout/episode/Episode";
-import {Header} from "../layout/header/Header";
-import {Location} from "../layout/locatoin/Location";
-import './App.css';
-import {Container} from "../common/components/Container";
-import {Route, Routes} from "react-router-dom";
-import {HeroCard} from "../common/components/heroCard/HeroCard";
-import {LinearProgress} from "@mui/material";
+import React, { Suspense, lazy } from 'react';
+import { Route, Routes } from "react-router-dom";
+import { LinearProgress } from "@mui/material";
 import styled from "styled-components";
-import {useGetCharactersQuery} from "../layout/characters/charactersApi";
-import {useTheme} from "./ThemeContextProvider";
-import {GlobalStyle} from "../styles/Global.styles";
+import { Container } from "../common/components/Container";
+import { Header } from "../layout/header/Header";
+import { useTheme } from "./ThemeContextProvider";
+import { GlobalStyle } from "../styles/Global.styles";
+
+// Ленивые импорты
+const Characters = lazy(() => import("../layout/characters/Characters"));
+const Episode = lazy(() => import("../layout/episode/Episode"));
+const Location = lazy(() => import("../layout/locatoin/Location"));
+const HeroCard = lazy(() => import("../common/components/heroCard/HeroCard"));
 
 function App() {
-
-  const { isFetching } = useGetCharactersQuery({ page: 1,status: '', species: '', gender: '', nameCharacter: "" });
-
-  const {enterTheme} = useTheme()
-
+  const { enterTheme } = useTheme();
 
   return (
-    <AppWrapper >
-      <GlobalStyle enterTheme={enterTheme}/>
-      <Header />
-        {isFetching && (
-          <WrapperForLinearProgress>
-            <LinearProgress />
-          </WrapperForLinearProgress>
-        )}
+    <AppWrapper>
+      <GlobalStyle enterTheme={enterTheme} />
+      <Header enterTheme={enterTheme} />
 
       <Container>
-        <Routes>
-          <Route path={'/'} element={<Characters/>}/>
-          <Route  path="/characters" element={<Characters/>}/>
-          <Route  path="/location" element={<Location/>}/>
-          <Route  path="/episode" element={<Episode/>}/>
-
-          <Route path={`/characters/:id`} element={<HeroCard/>}/>
-          <Route path={`/episode/:id`} element={<HeroCard/>}/>
-          <Route path={`/location/:id`} element={<HeroCard/>}/>
-        </Routes>
+        <Suspense fallback={<LinearProgress />}>
+          <Routes>
+            <Route path="/" element={<Characters />} />
+            <Route path="/characters" element={<Characters />} />
+            <Route path="/location" element={<Location />} />
+            <Route path="/episode" element={<Episode />} />
+            <Route path="/characters/:id" element={<HeroCard />} />
+            <Route path="/episode/:id" element={<HeroCard />} />
+            <Route path="/location/:id" element={<HeroCard />} />
+          </Routes>
+        </Suspense>
       </Container>
     </AppWrapper>
   );
 }
 
-const AppWrapper= styled.div<{theme: string}>`
-  
-    
-`
-const WrapperForLinearProgress= styled.div`
-  margin-top: 70px;
-`
+const AppWrapper = styled.div<{ theme?: string }>`
+`;
+
 export default App;

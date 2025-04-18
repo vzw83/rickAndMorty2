@@ -37,7 +37,7 @@ const Item = styled.li`
 const StyledNavLink = styled(NavLink)`
   font-weight: 600;
   font-size: 22px;
-  color: ${theme.colors.font};
+  color: ${theme.colors.accent};
   text-decoration: none;
   padding-bottom: 5px;
   position: relative;

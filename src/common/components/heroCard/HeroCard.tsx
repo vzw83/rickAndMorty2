@@ -6,7 +6,7 @@ import {Status} from "../status/Status";
 
 type Props = {};
 
-export const HeroCard = (props: Props) => {
+ const HeroCard = (props: Props) => {
   const params = useParams();
   const characterId = Number(params.id);
 
@@ -36,3 +36,6 @@ export const HeroCard = (props: Props) => {
     </div>
   );
 };
+
+
+ export default HeroCard;

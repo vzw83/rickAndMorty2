@@ -31,21 +31,21 @@ export const GlobalStyle = createGlobalStyle<{enterTheme: string}>`
     }
     
     p{
-        color: ${theme.colors.font};
+        color: ${theme.colors.accent};
         font-weight: 500;
         font-size: 18px;
         line-height: 178%;
     }
 
     section{
-        background-color: ${theme.colors.secondaryBg};
+        background-color: ${theme.colors.accent};
     }
  
     button {
         background-color: unset;
         border: none;
         cursor: pointer;
-        color: ${theme.colors.font};
+        color: ${theme.colors.accent};
         font-weight: 600;
         font-size: 16px;
         

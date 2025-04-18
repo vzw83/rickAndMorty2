@@ -5,11 +5,13 @@ import {Character, CharactersResponse} from "../../utils/types/types";
 export const characterApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getCharacters: builder.query<CharactersResponse, {page: number, status: string,species: string, gender: string, nameCharacter: string }>({
-        query: (arg) => `character?page=${arg.page}&name=${arg.nameCharacter}&status=${arg.status}&species=${arg.species}&gender=${arg.gender}`,
-        // transformResponse: (res: CharactersResponse) => res,
-        // providesTags: ["RickAndMorty"]
+      query: (arg) =>
+        `character?page=${arg.page}&name=${arg.nameCharacter}&status=${arg.status}&species=${arg.species}&gender=${arg.gender}`,
+      transformResponse: async (response: CharactersResponse) => {
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // задержка 2 секунды
+        return response;
       },
-    ),
+    }),
     getMultipleCharacters:builder.query<Character[],number[]>({
         query: (ids) => `character/${[ids]}`,
         // transformResponse: (res: Character[] ) => res,
@@ -26,6 +28,6 @@ export const characterApi = baseApi.injectEndpoints({
   })
 })
 
-export const {useGetCharactersQuery, useLazyGetCharactersQuery, useGetMultipleCharactersQuery, useGetSingleCharactersQuery} = characterApi
+export const {useGetCharactersQuery,  useGetMultipleCharactersQuery, useGetSingleCharactersQuery} = characterApi
 
 

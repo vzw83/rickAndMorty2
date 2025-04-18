@@ -70,7 +70,7 @@ const BurgerButton = styled.button<{ isOpenMenu: boolean }>`
         display: block;
         width: 36px;
         height: 2px;
-        background-color: ${theme.colors.font};
+        background-color: ${theme.colors.accent};
         position: relative;
         transition: all 0.3s ease-in-out;
 
@@ -83,7 +83,7 @@ const BurgerButton = styled.button<{ isOpenMenu: boolean }>`
             display: block;
             width: 36px;
             height: 2px;
-            background-color: ${theme.colors.font};
+            background-color: ${theme.colors.accent};
             position: absolute;
             left: 0;
             transition: all 0.3s ease-in-out;

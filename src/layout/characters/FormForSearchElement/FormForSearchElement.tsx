@@ -1,6 +1,7 @@
 import {FlexWrapper} from "../../../common/components/FlexWrapper";
 import {Button} from "../../../common/components/button/Button";
 import styled from "styled-components";
+import {theme} from "../../../styles/Theme";
 
 
 type Props = {
@@ -22,18 +23,20 @@ export const FormForSearchElement = ({ value, setValue, onSearchCharacters}: Pro
 
 
   return (
-    <FlexWrapper>
+    // <FlexWrapper>
+    <Wrapper>
       <StyledForm>
         <StyledInput value={value} onChange={handleOnChange} placeholder={"Search for Characters"}/>
       </StyledForm>
-      <Button color={"white"} bgColor={"#3b82f6"} disableHover={false}>Search</Button>
-    </FlexWrapper>
+      <Button color={"white"} bgColor={theme.colors.buttonBg} disableHover={false}>Search</Button>
+    </Wrapper>
+
+    // </FlexWrapper>
   );
 };
 
 const StyledForm = styled.form`
   display: flex;
-  align-items: center;
 `;
 
 const StyledInput = styled.input`
@@ -41,13 +44,29 @@ const StyledInput = styled.input`
     font-size: 16px;
     border: 2px solid #ccc;
     min-width: 600px;
+    width: 100%;
     border-radius: 8px;
     outline: none;
     transition: all 0.3s ease-in-out;
     margin-right: 20px;
 
     &:focus {
-        border-color: #3b82f6;
+        border-color: ${theme.colors.buttonBg};
         box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
     }
+
+    @media ${theme.media.tablet} {
+        min-width: 320px;
+        margin-right: 0;
+
+    }
 `;
+
+const Wrapper = styled(FlexWrapper)`    
+    justify-content: center;
+      @media ${theme.media.tablet} {
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+      }
+`

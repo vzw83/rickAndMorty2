@@ -55,5 +55,6 @@ const StyledButton = styled.button<{ border?: string, disableHover: boolean, bgC
         `
         }
         transition: 0.3s ease-in-out;
-    }
+    }   
+    
 `;

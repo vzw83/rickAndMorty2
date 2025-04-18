@@ -66,8 +66,10 @@ export const Options = ({handleClick, clearFilters, filters}: Props) => {
 
   return (
     <StyledOptions>
-      <TitleOptions enterTheme={enterTheme}>Filters</TitleOptions>
-      <Button onClick={clearFilters} border={"none"} disableHover={true}>Clear Filters</Button>
+      <Wrapper>
+        <TitleOptions enterTheme={enterTheme}>Filters</TitleOptions>
+        <Button onClick={clearFilters} border={"none"} disableHover={true}>Clear Filters</Button>
+      </Wrapper>
 
       <Accordion isOpen={openAccordion === "Status"} setIsOpen={() => toggleAccordion("Status")} title={"Status"}>
         <FlexWrapper justify={"space-between"} wrap={"wrap"} gap={"10px"}>
@@ -98,7 +100,7 @@ export const Options = ({handleClick, clearFilters, filters}: Props) => {
       </Accordion>
 
       <Accordion isOpen={openAccordion === "Gender"} setIsOpen={() => toggleAccordion("Gender")} title={"Gender"}>
-        <FlexWrapper justify={"space-between"} wrap={"wrap"} gap={"10px"}>
+        <FlexWrapper justify={"space-between"}  wrap={"wrap"} gap={"10px"} >
           {arrayNamesButtonsForGender.map((item, index) => (
             <Button
               key={item}
@@ -116,5 +118,11 @@ export const Options = ({handleClick, clearFilters, filters}: Props) => {
 };
 
 const StyledOptions = styled.div`
-    min-width: 300px;
+    min-width: 330px;
+   `
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+
 `

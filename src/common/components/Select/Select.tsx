@@ -31,7 +31,6 @@ const Form = styled.form`
     padding: 0;
     display: inline-block;    
     justify-content: center;
-    margin-right: 50px;
 `;
 
 const SelectElement = styled.select`

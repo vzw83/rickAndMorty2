@@ -11,10 +11,10 @@ import {Options} from "../../common/components/options/Options";
 import {FormForSearchElement} from "./FormForSearchElement/FormForSearchElement";
 import {useTheme} from "../../app/ThemeContextProvider";
 import {Character} from "../../utils/types/types";
+import {theme} from "../../styles/Theme";
 
 
-export const Characters = () => {
-
+const Characters = () => {
 
   const {enterTheme} = useTheme()
 
@@ -34,9 +34,6 @@ export const Characters = () => {
   const page = data?.info.pages;
 
   const characters: Character[] = data?.results || [];
-
-  // const normalizedChartres = Array.isArray(characters) ? characters : [characters];
-
 
   const filteredCharacters: Character[] = characters.filter((character) =>
     character.name.toLowerCase().includes(nameCharacter.toLowerCase())
@@ -65,12 +62,11 @@ export const Characters = () => {
   };
 
   const handlerSearchCharacters = (name: string) => {
-    if(currentPage !== 1){
+    if (currentPage !== 1) {
       setCurrentPage(1)
     }
     setNameCharacter(name)
   }
-  console.log(data);
 
   const clearFilters = () => {
     setFilters({status: "", gender: "", species: ""})
@@ -84,13 +80,7 @@ export const Characters = () => {
 
   return (
     <StyledCharacters>
-      <Pagination style={{display: "flex", justifyContent: "center", margin: "20px 0"}}
-                  variant="outlined"
-                  shape="rounded"
-                  onChange={handlerOnChange}
-                  count={page ?? 1}
-                  page={currentPage}
-      />
+
       <FlexWrapper justify={"center"}>
         <Title enterTheme={enterTheme}>Characters</Title>
       </FlexWrapper>
@@ -101,29 +91,31 @@ export const Characters = () => {
         </FlexWrapper>
       </WrapperForForm>
 
-      <FlexWrapper>
-        <WrapperForOptoons>
+      {/*<FlexWrapper>*/}
+      <Wrapper>
+        <WrapperForOptions>
           <Options handleClick={handleFilteredCharacters} clearFilters={clearFilters} filters={filters}/>
-        </WrapperForOptoons>
+        </WrapperForOptions>
 
-        <FlexWrapper justify={"space-between"} wrap={"wrap"} gap={"10px"} grow={"1"}>
-          {isFetching ? (
+        <FlexWrapper justify={"space-around"} wrap={"wrap"} gap={"10px"} >
+          {isLoading ? (
             Array.from({length: 9}).map((_, index) => <Skeleton key={index}/>)
 
           ) : filteredCharacters.map((character) => (
             <NavLink key={character?.id} to={`/characters/${character?.id}`}>
               <Card
-                key={character?.id }
-                img={character?.image }
-                name={character?.name }
-                location={character?.location?.name }
-                status={character?.status }
+                img={character?.image}
+                name={character?.name}
+                location={character?.location?.name}
+                status={character?.status}
               />
             </NavLink>
           ))
           }
         </FlexWrapper>
-      </FlexWrapper>
+        {/*</FlexWrapper>*/}
+      </Wrapper>
+
 
       <Pagination style={{display: "flex", justifyContent: "center", margin: "20px 0"}}
                   variant="outlined"
@@ -138,14 +130,30 @@ export const Characters = () => {
 };
 
 const StyledCharacters = styled.div`
-    margin-top: 80px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
 `
 const WrapperForForm = styled.div`
     margin-bottom: 50px;`
 
-const WrapperForOptoons = styled.div`
-    text-align: center;
+const WrapperForOptions = styled.div`
+    display: flex;
+    justify-content: center;
     margin-right: 50px;
+
+    @media ${theme.media.tablet} {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
 `
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    @media ${theme.media.tablet} {
+        flex-direction: column;
+
+        //justify-content: space-evenly;
+    }
+`
+export default Characters;

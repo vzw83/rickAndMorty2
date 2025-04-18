@@ -10,10 +10,11 @@ import {useState} from "react";
 import {TitlePageLoc} from "./TitltPageLoc/TitlePageLoc";
 import {TitleOptions} from "../../common/components/title/TitleOptions";
 import {useTheme} from "../../app/ThemeContextProvider";
+import {theme} from "../../styles/Theme";
 
-export const Location = () => {
+ const Location = () => {
 
-const {enterTheme} = useTheme()
+  const {enterTheme} = useTheme()
 
   const data = useGetLocationsQuery()
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -22,9 +23,8 @@ const {enterTheme} = useTheme()
   const {data: multepleLoc} = useGetMultipleLocationsQuery(currentPage)
 
 
-
-
   const quantityLocations = data?.data?.info.count
+
   const arrNumberLocations = getArrNumbersForLokAndEpis(quantityLocations) || []
 
   const idCharactersForLocations = multepleLoc?.residents.map(url => Number(url.split("/").pop())) ?? []
@@ -36,44 +36,45 @@ const {enterTheme} = useTheme()
   }
 
 
-
-  // const normalizeArr = Array.isArray(multipleCharacters) ? multipleCharacters : [multipleCharacters]
+  const normalizeArr = Array.isArray(multipleCharacters) ? multipleCharacters : [multipleCharacters]
 
   return (
     <StyledCharacters>
 
       <FlexWrapper justify={'center'}>
-        <TitlePageLoc titlePage={data?.data?.results[currentPage - 1].name} dimension={data?.data?.results[currentPage - 1].dimension} typeLoc={data?.data?.results[currentPage - 1].type}/>
+        <TitlePageLoc titlePage={data?.data?.results[currentPage - 1].name}
+                      dimension={data?.data?.results[currentPage - 1].dimension}
+                      typeLoc={data?.data?.results[currentPage - 1].type}/>
       </FlexWrapper>
 
-
-      <FlexWrapper>
-        <WrapperForOptoons>
+      <Wrapper>
+        {/*<FlexWrapper>*/}
           <FlexWrapper direction={'column'} align={'center'}>
             <TitleOptions enterTheme={enterTheme}>Pick Location</TitleOptions>
-            <Select nameOption={"Location"} handlerSelect={handlerSelect} arrNumberEpisodes={arrNumberLocations}/>
+            <WrapperSelect>
+              <Select nameOption={"Location"} handlerSelect={handlerSelect} arrNumberEpisodes={arrNumberLocations}/>
+            </WrapperSelect>
           </FlexWrapper>
-        </WrapperForOptoons>
 
 
-        <FlexWrapper justify={"start"} wrap={"wrap"} gap={"10px"}>
-          {Array.isArray(multipleCharacters) &&
-            multipleCharacters?.map((character) => {
-              return(
-                <NavLink key={character?.id} to={`/location/${character?.id}`}>
-                  <Card
-                    key={character?.id}
-                    img={character?.image }
-                    name={character?.name }
-                    location={character?.location?.name }
-                    status={character?.status }
-                  />
-                </NavLink>  )
+        <FlexWrapper justify={"space-around"} wrap={"wrap"} gap={"10px"}>
+          {normalizeArr.map((character) => {
+            return (
+              <NavLink key={character?.id} to={`/location/${character?.id}`}>
+                <Card
+                  key={character?.id}
+                  img={character?.image || ""}
+                  name={character?.name || ""}
+                  location={character?.location?.name || ""}
+                  status={character?.status || ""}
+                />
+              </NavLink>)
 
-            })
+          })
           }
         </FlexWrapper>
-      </FlexWrapper>
+        {/*</FlexWrapper>*/}
+      </Wrapper>
 
 
     </StyledCharacters>
@@ -82,10 +83,24 @@ const {enterTheme} = useTheme()
 };
 
 const StyledCharacters = styled.div`
-    margin-top: 80px;
+    margin-top: 50px;
+    @media ${theme.media.tablet} {
+        margin-top: 20px;
+    }
 `
-const WrapperForOptoons = styled.div`
-    min-width: 300px;
-    text-align: center;
+
+const WrapperSelect = styled.div`
     margin-right: 50px;
+
+    @media ${theme.media.tablet} {
+        margin: 0 0 50px 0;
+    }
 `
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+    @media ${theme.media.tablet} {
+        flex-direction: column;
+    }
+`
+export default Location
