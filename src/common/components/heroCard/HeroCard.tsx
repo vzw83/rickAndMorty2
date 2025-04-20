@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { useGetCharactersQuery, useGetSingleCharactersQuery } from "../../../layout/characters/charactersApi";
+import { useGetSingleCharactersQuery } from "../../../layout/characters/charactersApi";
 import {Status} from "../status/Status";
 
 type Props = {};
@@ -11,7 +11,6 @@ type Props = {};
   const characterId = Number(params.id);
 
 
-  // Получаем одного персонажа (опционально, если используется)
   const { data: singleCharacter} = useGetSingleCharactersQuery(characterId);
   if (!singleCharacter) {
     return <div>Loading...</div>;
@@ -23,7 +22,7 @@ type Props = {};
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" , margin: "300px 0" }}>
+    <div style={{ display: "flex", justifyContent: "center" , alignItems: "center", height: "100vh" }}>
       <div>
         <h3>{singleCharacter.name}</h3>
         <img src={singleCharacter.image} alt={singleCharacter.name} />

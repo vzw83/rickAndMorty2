@@ -17,61 +17,71 @@ export const MobileMenu = (props: Props) => {
     return (
         <StyledMobileMenu>
             <BurgerButton onClick={handlerButtonMenu} isOpenMenu={isOpenMenu}>
-                <span></span>
+              <span></span>
             </BurgerButton>
             <MobileMenuPopup isOpenMenu={isOpenMenu} >
-                <Menu/>
+              <Menu/>
             </MobileMenuPopup>
+
         </StyledMobileMenu>
     );
 };
 
 const StyledMobileMenu = styled.div`
     display: none;
-
+    position: absolute;
+    left: 0;
+    top: 90px;
+    width: 100%;
     @media ${theme.media.tablet} {
         display: block;
     }
 `;
 const MobileMenuPopup = styled.div<{ isOpenMenu?: boolean }>`
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 999;
-    background-color: rgba(26, 26, 38, 0.9);
     display: none;
+    //width: 100%;
+    background-color: ${theme.lightTheme.firstBg};
+    padding: 20px 0;
 
     ${props => props.isOpenMenu && css`
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: block;
     `}
+
     ul {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 40px;
+        justify-content: space-around;
+        gap: 20px;
     }
+ 
 `;
+
+
+
+
+
 const BurgerButton = styled.button<{ isOpenMenu: boolean }>`
-    position: fixed;
-    top: 20px;
-    right: 20px;
     width: 40px;
     height: 40px;
-    z-index: 9999;
+    z-index: 99999;
     background: none;
     border: none;
     cursor: pointer;
+    position: absolute;
+    right: 25px;
+    top: -60px;
+    
+    
+    &:focus,
+    &:active {
+        outline: none;
+        background: none;
+    }
 
     span {
         display: block;
         width: 36px;
         height: 2px;
         background-color: ${theme.colors.accent};
-        position: relative;
         transition: all 0.3s ease-in-out;
 
         ${props => props.isOpenMenu && css`

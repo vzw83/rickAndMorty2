@@ -8,6 +8,7 @@ import {LinearProgress} from "@mui/material";
 import {useGetCharactersQuery} from "../characters/charactersApi";
 import {useTheme} from "../../app/ThemeContextProvider";
 import {ButtonForTheme} from "./buttonForTheme/ButtonForTheme";
+import {MobileMenu} from "./menu/MobileMenu";
 
 
 type Props = {
@@ -36,8 +37,8 @@ export const Header = ({enterTheme}: Props) => {
               <IconName>Rick & Morty <span>WiKi</span></IconName>
             </Link>
             <NavMenu>
-              <DesktopMenu/>
-              {/*<MobileMenu/>*/}
+              <DesktopMenu />
+              <MobileMenu />
             </NavMenu>
           </FlexWrapper>
         </Container>

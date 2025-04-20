@@ -63,7 +63,7 @@ const CartText = styled.p<{ enterTheme: string }>`
 `
 
 const WrapperImg = styled.div`
-    position: relative; /* Родительский контейнер для абсолютного позиционирования */
+    position: relative;
     margin-bottom: 16px;
 `;
 
